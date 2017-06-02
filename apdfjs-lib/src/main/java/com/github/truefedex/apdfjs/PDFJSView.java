@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.webkit.URLUtil;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -45,6 +46,7 @@ public class PDFJSView extends WebView {
                 return super.shouldOverrideUrlLoading(view, url);
             }
         });
+        setWebChromeClient(new WebChromeClient());
     }
 
     public void loadFromAssets(String pdfAssetsPath) {

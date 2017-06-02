@@ -2,5 +2,4 @@
     <string name="app_name">APDFJS Example</string>
     <string name="load_from_assets">Load from assets</string>
     <string name="load_from_file_system">Load from file system</string>
-    <string name="load_from_url">Load from URL</string>
 </resources>
