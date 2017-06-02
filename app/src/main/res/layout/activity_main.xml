@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.github.truefedex.apdfjsexample.MainActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/load_from_assets"
+        android:onClick="loadFromAssetsClick"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/load_from_file_system"
+        android:onClick="loadFromFileSystem"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/load_from_url"
+        android:onClick="loadFromURL"/>
+
+    <com.github.truefedex.apdfjs.PDFJSView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/apdfjs"/>
+</LinearLayout>
