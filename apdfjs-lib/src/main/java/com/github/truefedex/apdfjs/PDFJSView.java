@@ -1,21 +1,22 @@
 package com.github.truefedex.apdfjs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import java.net.URLEncoder;
+import android.widget.FrameLayout;
 
 /**
  * Created by PDT on 02.06.2017.
  */
 
-public class PDFJSView extends WebView {
+public class PDFJSView extends FrameLayout {
+    private WebView webView;
+
     public PDFJSView(Context context) {
         super(context);
         init();
@@ -31,35 +32,34 @@ public class PDFJSView extends WebView {
         init();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void init() {
-        getSettings().setJavaScriptEnabled(true);
-        getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        getSettings().setAllowFileAccess(true);
+        webView = new WebView(getContext());
+        addView(webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webView.getSettings().setAllowFileAccess(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            getSettings().setAllowFileAccessFromFileURLs(true);
-            getSettings().setAllowUniversalAccessFromFileURLs(true);
+            webView.getSettings().setAllowFileAccessFromFileURLs(true);
+            webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         }
 
-        setWebViewClient(new WebViewClient(){
+        webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 return super.shouldOverrideUrlLoading(view, url);
             }
         });
-        setWebChromeClient(new WebChromeClient());
+        webView.setWebChromeClient(new WebChromeClient());
     }
 
     public void loadFromAssets(String pdfAssetsPath) {
-        loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file:///android_asset/" +
-                URLEncoder.encode(pdfAssetsPath));
+        webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file:///android_asset/" +
+                Uri.encode(pdfAssetsPath, "UTF-8"));
     }
 
     public void loadFromFile(String pdfFilePath) {
-        loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file://" +
-                URLEncoder.encode(pdfFilePath));
-    }
-
-    public void loadFromURL(String pdfURL) {
-        loadUrl("http://drive.google.com/viewerng/viewer?embedded=true&url=" + pdfURL);
+        webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file://" +
+                Uri.encode(pdfFilePath, "UTF-8"));
     }
 }
