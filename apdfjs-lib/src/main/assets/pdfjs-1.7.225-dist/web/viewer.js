@@ -6485,7 +6485,7 @@ var pdfjsWebLibs;
     var file;
     var queryString = document.location.search.substring(1);
     var params = parseQueryString(queryString);
-    file = 'file' in params ? params.file : DEFAULT_URL;
+    file = 'file' in params ? params.file : APDFJS.getFileName();
     validateFileURL(file);
     var waitForBeforeOpening = [];
     var appConfig = PDFViewerApplication.appConfig;

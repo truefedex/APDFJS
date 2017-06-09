@@ -15,7 +15,9 @@ import android.widget.FrameLayout;
  */
 
 public class PDFJSView extends FrameLayout {
+    public static final String PDFJS_ASSETS_PATH = "file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html";
     private WebView webView;
+    private APDFJSInterface apdfjsInterface = new APDFJSInterface();
 
     public PDFJSView(Context context) {
         super(context);
@@ -32,13 +34,14 @@ public class PDFJSView extends FrameLayout {
         init();
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
     private void init() {
         webView = new WebView(getContext());
         addView(webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         webView.getSettings().setAllowFileAccess(true);
+        webView.addJavascriptInterface(apdfjsInterface, "APDFJS");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             webView.getSettings().setAllowFileAccessFromFileURLs(true);
             webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
@@ -54,12 +57,19 @@ public class PDFJSView extends FrameLayout {
     }
 
     public void loadFromAssets(String pdfAssetsPath) {
-        webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file:///android_asset/" +
-                Uri.encode(pdfAssetsPath, "UTF-8"));
+        apdfjsInterface.fileName = "file:///android_asset/" + Uri.encode(pdfAssetsPath, "UTF-8");
+        webView.loadUrl(PDFJS_ASSETS_PATH);
     }
 
     public void loadFromFile(String pdfFilePath) {
-        webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file://" +
-                Uri.encode(pdfFilePath, "UTF-8"));
+        apdfjsInterface.fileName = Uri.encode(pdfFilePath, "UTF-8");
+        webView.loadUrl(PDFJS_ASSETS_PATH);
+    }
+
+    public class APDFJSInterface {
+        String fileName = "";
+        public String getFileName() {
+            return fileName;
+        }
     }
 }
