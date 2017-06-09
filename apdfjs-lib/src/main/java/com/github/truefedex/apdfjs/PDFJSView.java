@@ -57,13 +57,23 @@ public class PDFJSView extends FrameLayout {
     }
 
     public void loadFromAssets(String pdfAssetsPath) {
-        apdfjsInterface.fileName = "file:///android_asset/" + Uri.encode(pdfAssetsPath, "UTF-8");
-        webView.loadUrl(PDFJS_ASSETS_PATH);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file:///android_asset/" +
+                    Uri.encode(pdfAssetsPath, "UTF-8"));
+        } else {
+            apdfjsInterface.fileName = "file:///android_asset/" + pdfAssetsPath;
+            webView.loadUrl(PDFJS_ASSETS_PATH);
+        }
     }
 
     public void loadFromFile(String pdfFilePath) {
-        apdfjsInterface.fileName = Uri.encode(pdfFilePath, "UTF-8");
-        webView.loadUrl(PDFJS_ASSETS_PATH);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file://" +
+                    Uri.encode(pdfFilePath, "UTF-8"));
+        } else {
+            apdfjsInterface.fileName = "file://" + pdfFilePath;
+            webView.loadUrl(PDFJS_ASSETS_PATH);
+        }
     }
 
     public class APDFJSInterface {
