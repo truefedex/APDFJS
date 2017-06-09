@@ -21,7 +21,7 @@ Step 2. Add the dependency
 
 ```groovy
 dependencies {
-	compile 'com.github.truefedex:APDFJS:v1.0'
+	compile 'com.github.truefedex:APDFJS:v1.0.1'
 }
 ```
 
