@@ -57,7 +57,7 @@ public class PDFJSView extends FrameLayout {
     }
 
     public void loadFromAssets(String pdfAssetsPath) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file:///android_asset/" +
                     Uri.encode(pdfAssetsPath, "UTF-8"));
         } else {
@@ -67,7 +67,7 @@ public class PDFJSView extends FrameLayout {
     }
 
     public void loadFromFile(String pdfFilePath) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             webView.loadUrl("file:///android_asset/pdfjs-1.7.225-dist/web/viewer.html?file=file://" +
                     Uri.encode(pdfFilePath, "UTF-8"));
         } else {
