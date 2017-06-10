@@ -1,4 +1,6 @@
 # APDFJS
+[![](https://jitpack.io/v/truefedex/APDFJS.svg)](https://jitpack.io/#truefedex/APDFJS)
+
 Simple Android library (webview based) for viewing pdf files using Mozilla's [PDF.js](https://mozilla.github.io/pdf.js) library for wieving local pdf files.
 
 <img src="/screenshot.png" alt="Demo" width="300px" />
